@@ -6,6 +6,7 @@ import com.darusc.mousedroid.networking.Connection
 import com.darusc.mousedroid.networking.toSocketReport
 import java.io.InputStream
 import java.io.OutputStream
+import java.net.InetSocketAddress
 import java.net.Socket
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -35,7 +36,11 @@ class TCPConnection(
 
     init {
         try {
-            socket = Socket(ipAddress, port)
+            // NOTE: plain Socket(ip, port) blocks with NO timeout (minutes on a
+            // filtered network), leaving the UI stuck on "Connecting...".
+            // 8s timeout -> ConnectionFailedException -> failure popup instead.
+            socket = Socket()
+            socket.connect(InetSocketAddress(ipAddress, port), 8000)
 
             outputStream = socket.getOutputStream()
             inputStream = socket.getInputStream()

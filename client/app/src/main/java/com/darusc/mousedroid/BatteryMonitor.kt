@@ -57,7 +57,13 @@ class BatteryMonitor {
 
     fun start(context: Context) {
         val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
-        context.registerReceiver(receiver, filter)
+        // targetSdk 34+ (Android 14-16) requires an explicit exported flag.
+        androidx.core.content.ContextCompat.registerReceiver(
+            context,
+            receiver,
+            filter,
+            androidx.core.content.ContextCompat.RECEIVER_NOT_EXPORTED
+        )
     }
 
     fun stop(context: Context) {

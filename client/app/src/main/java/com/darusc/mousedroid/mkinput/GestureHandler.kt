@@ -25,6 +25,21 @@ class GestureHandler(
     private val EV_DELAY_MILLIS: Long = 150
     private val SCROLL_TRESHOLD = 2.0f
 
+    /**
+     * Touch slop / sensitivity tuning. The old build sent raw pixel deltas
+     * capped at 127, so a fast flick either barely moved the cursor or
+     * saturated the HID byte and felt jumpy. Scale by density, apply a gain,
+     * and split large deltas into several bounded HID reports so movement
+     * stays smooth and proportional to finger speed.
+     */
+    private val density: Float = context.resources.displayMetrics.density
+    private val moveGain = 1.6f
+    private val scrollGain = 0.35f
+    private var moveRemainderX = 0f
+    private var moveRemainderY = 0f
+    private var scrollRemainderX = 0f
+    private var scrollRemainderY = 0f
+
     private data class State(
         var scrolling: Boolean,
         var lastScrolled: Long,
@@ -102,7 +117,7 @@ class GestureHandler(
                 doubleTapRunnable = Runnable {
                     CoroutineScope(Dispatchers.IO).launch {
                         sendInputCallback(InputEvent.MouseClick(InputEvent.MouseButton.LEFT))
-                        // Add delay so the 2 clicks are registered when sent via bluetooth
+                        // Add delay so the 2 clicks register as a double click
                         // TODO() might break over TCP/UDP
                         delay(75)
                         sendInputCallback(InputEvent.MouseClick(InputEvent.MouseButton.LEFT))
@@ -121,43 +136,20 @@ class GestureHandler(
                 distanceX: Float,
                 distanceY: Float
             ): Boolean {
-                if ((e1?.pointerCount == 2 || e2.pointerCount == 2) || System.currentTimeMillis() - state.lastScrolled < EV_DELAY_MILLIS) {
+                val fingers = maxOf(e1?.pointerCount ?: 1, e2.pointerCount)
+                if (fingers >= 2 || System.currentTimeMillis() - state.lastScrolled < EV_DELAY_MILLIS) {
                     if (abs(distanceX) < SCROLL_TRESHOLD && abs(distanceY) < SCROLL_TRESHOLD) {
                         return super.onScroll(e1, e2, distanceX, distanceY)
                     }
 
-                    // If at least one event has 2 pointers and the time before last scroll is less than 500ms
-                    // we continue to scroll
+                    // Two fingers = scroll. Keep scrolling briefly after the
+                    // second finger lifts so the gesture does not cut off.
                     state.scrolling = true
                     state.lastScrolled = System.currentTimeMillis()
-
-                    val type: Byte
-                    val delta: Float
-                    if (abs(distanceY) > abs(distanceX)) {
-                        // Vertical scrolling
-                        sendInputCallback(
-                            InputEvent.MouseScroll(
-                                0,
-                                -distanceY.toInt().coerceIn(-128, 127)
-                            )
-                        )
-                    } else {
-                        // Horizontal scrolling
-                        sendInputCallback(
-                            InputEvent.MouseScroll(
-                                -distanceX.toInt().coerceIn(-128, 127), 0
-                            )
-                        )
-                    }
+                    sendSmoothScroll(-distanceX, -distanceY)
                 } else {
-                    // We consider to be just moving if there is 1 pointer in both events
-                    sendInputCallback(
-                        InputEvent.MouseMove(
-                            distanceX.toInt().coerceIn(-128, 127),
-                            distanceY.toInt().coerceIn(-128, 127),
-                            state.activeMouseWhileDragging
-                        )
-                    )
+                    // One finger = pointer move.
+                    sendSmoothMove(distanceX, distanceY, state.activeMouseWhileDragging)
                 }
 
                 return super.onScroll(e1, e2, distanceX, distanceY)
@@ -222,8 +214,58 @@ class GestureHandler(
                     gestureDetector.onTouchEvent(cancelEvent)
                 }
             }
+            MotionEvent.ACTION_DOWN -> {
+                // Fresh stroke: drop accumulated sub-pixel remainders so the
+                // cursor does not jump from the previous gesture.
+                moveRemainderX = 0f
+                moveRemainderY = 0f
+                scrollRemainderX = 0f
+                scrollRemainderY = 0f
+            }
         }
 
         return true
+    }
+
+    private fun sendSmoothMove(distanceX: Float, distanceY: Float, button: InputEvent.MouseButton) {
+        moveRemainderX += distanceX * moveGain / density
+        moveRemainderY += distanceY * moveGain / density
+        val dx = moveRemainderX.toInt()
+        val dy = moveRemainderY.toInt()
+        moveRemainderX -= dx
+        moveRemainderY -= dy
+        if (dx == 0 && dy == 0) {
+            return
+        }
+        var remainingX = dx
+        var remainingY = dy
+        while (remainingX != 0 || remainingY != 0) {
+            val stepX = remainingX.coerceIn(-100, 100)
+            val stepY = remainingY.coerceIn(-100, 100)
+            sendInputCallback(InputEvent.MouseMove(stepX, stepY, button))
+            remainingX -= stepX
+            remainingY -= stepY
+        }
+    }
+
+    private fun sendSmoothScroll(distanceX: Float, distanceY: Float) {
+        scrollRemainderX += distanceX * scrollGain
+        scrollRemainderY += distanceY * scrollGain
+        val dominantVertical = abs(scrollRemainderY) >= abs(scrollRemainderX)
+        if (dominantVertical) {
+            val ticks = (scrollRemainderY / 10).toInt()
+            if (ticks != 0) {
+                scrollRemainderY -= ticks * 10
+                scrollRemainderX = 0f
+                sendInputCallback(InputEvent.MouseScroll(0, ticks * 10))
+            }
+        } else {
+            val ticks = (scrollRemainderX / 10).toInt()
+            if (ticks != 0) {
+                scrollRemainderX -= ticks * 10
+                scrollRemainderY = 0f
+                sendInputCallback(InputEvent.MouseScroll(ticks * 10, 0))
+            }
+        }
     }
 }

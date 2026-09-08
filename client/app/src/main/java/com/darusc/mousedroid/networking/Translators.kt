@@ -1,15 +1,7 @@
 package com.darusc.mousedroid.networking
 
-import android.util.Log
-import com.darusc.mousedroid.layouts.KeyboardLayout
-import com.darusc.mousedroid.layouts.Keycode
 import com.darusc.mousedroid.mkinput.InputEvent
-import com.darusc.mousedroid.networking.bluetooth.BatteryReport
-import com.darusc.mousedroid.networking.bluetooth.HIDReport
-import com.darusc.mousedroid.networking.bluetooth.KeyboardReport
-import com.darusc.mousedroid.networking.bluetooth.MediaReport
-import com.darusc.mousedroid.networking.bluetooth.MouseReport
-import kotlin.experimental.and
+import kotlin.math.abs
 
 /**
  * HID usage IDs used in translating the events into raw bytes for the HID protocol
@@ -35,15 +27,6 @@ private object RawSocketEvents {
     const val MEDIA: Byte = 0x0A
 }
 
-private fun getMouseButtonHIDCode(button: InputEvent.MouseButton): Byte {
-    return when (button) {
-        InputEvent.MouseButton.NONE -> 0
-        InputEvent.MouseButton.LEFT -> 1
-        InputEvent.MouseButton.RIGHT -> 2
-        InputEvent.MouseButton.MIDDLE -> 4
-    }
-}
-
 /**
  * Transforms a media action into its corresponding bitmask.
  * The activated bit is the corresponding to the position
@@ -62,93 +45,6 @@ private fun getMediaActionHIDBitmask(action: InputEvent.MediaAction): Short {
     }
 }
 
-/**
- * Translate the input event to 1 or more bluetooth HID reports
- * (e.g mouse click requires 2 reports -> one for pressing the button and one for releasing)
- */
-fun InputEvent.toHIDReport(): Array<HIDReport> {
-    Log.d("Mousedroid", this::class.java.toString())
-    return when (this) {
-        is InputEvent.MouseMove -> {
-            val report = MouseReport(
-                getMouseButtonHIDCode(this.button),
-                (-this.dx).toByte(),
-                (-this.dy).toByte(),
-                0
-            )
-            arrayOf(report)
-        }
-
-        is InputEvent.MouseClick -> {
-            val r1 = MouseReport(getMouseButtonHIDCode(this.button), 0, 0, 0)
-            val r2 = MouseReport(0, 0, 0, 0)
-            arrayOf(r1, r2)
-        }
-
-        is InputEvent.MouseDragState -> {
-            val state = if (this.isDown) getMouseButtonHIDCode(this.button) else 0
-            val report = MouseReport(state, 0, 0, 0)
-            arrayOf(report)
-        }
-
-        is InputEvent.MouseScroll -> {
-            val reports = arrayListOf<HIDReport>()
-
-            val vScroll = (this.dy / 10).coerceIn(-127, 127).toByte()
-            val hScroll = (this.dx / 10).coerceIn(-127, 127).toByte()
-
-            if (vScroll.toInt() != 0) {
-                reports.add(MouseReport(0, 0, 0, vScroll))
-            } else if (hScroll.toInt() != 0) {
-                reports.add(KeyboardReport(Keycode.MOD_LEFT_SHIFT, 0)) // Hold Shift
-                reports.add(MouseReport(0, 0, 0, hScroll))              // Scroll
-                reports.add(KeyboardReport(0, 0))                       // Release Shift
-            }
-
-            reports.toTypedArray()
-        }
-
-        is InputEvent.KeyPress -> {
-            val reports = mutableListOf<KeyboardReport>()
-            keyList.forEach {
-                reports.add(KeyboardReport(it.modifier, it.code))
-                reports.add(KeyboardReport(0, 0))
-            }
-            reports.toTypedArray()
-        }
-
-        is InputEvent.Zoom -> {
-            // CTRL + mouse wheel rotation
-            val zoom = this.scale.coerceIn(-127, 127).toByte()
-            if (zoom.toInt() != 0) {
-                arrayOf(
-                    KeyboardReport(Keycode.MOD_LEFT_CTRL),   // Press CTRL
-                    MouseReport(0, 0, 0, zoom),                 // Scroll
-                    KeyboardReport(0)                                 // Release CTRL
-                )
-            } else {
-                emptyArray()
-            }
-        }
-
-        is InputEvent.NumpadKeyPress -> {
-            arrayOf(
-                KeyboardReport(0x00, this.key),
-                KeyboardReport(0)
-            )
-        }
-
-        is InputEvent.MediaEvent -> {
-            val bitmask = getMediaActionHIDBitmask(this.action)
-            arrayOf(MediaReport(bitmask), MediaReport(0))
-        }
-
-        is InputEvent.BatteryEvent -> {
-            arrayOf(BatteryReport(this.percentage))
-        }
-    }
-}
-
 private fun socketReport(vararg bytes: Byte): Array<ByteArray> {
     return arrayOf(bytes)
 }
@@ -163,11 +59,18 @@ fun InputEvent.toSocketReport(): Array<ByteArray> {
         }
 
         is InputEvent.MouseScroll -> {
-            if (this.dy != 0) {
-                socketReport(RawSocketEvents.SCROLL, (this.dy).toByte())
-            } else {
-                socketReport(RawSocketEvents.SCROLL_H, (this.dx).toByte())
+            // Socket protocol takes one tick per byte; split into single-tick
+            // packets so Wi-Fi scroll stays proportional to finger speed.
+            val packets = arrayListOf<ByteArray>()
+            val vTicks = (this.dy / 10).coerceIn(-127, 127)
+            val hTicks = if (vTicks != 0) 0 else (this.dx / 10).coerceIn(-127, 127)
+            repeat(abs(vTicks)) {
+                packets.add(byteArrayOf(RawSocketEvents.SCROLL, if (vTicks > 0) 10 else -10))
             }
+            repeat(abs(hTicks)) {
+                packets.add(byteArrayOf(RawSocketEvents.SCROLL_H, if (hTicks > 0) 10 else -10))
+            }
+            packets.toTypedArray()
         }
 
         is InputEvent.MouseClick -> {
@@ -199,7 +102,7 @@ fun InputEvent.toSocketReport(): Array<ByteArray> {
 
         is InputEvent.MediaEvent -> {
             val bitmask = getMediaActionHIDBitmask(this.action)
-            socketReport(RawSocketEvents.MEDIA, (bitmask and 0xFF).toByte())
+            socketReport(RawSocketEvents.MEDIA, (bitmask.toInt() and 0xFF).toByte())
         }
 
         is InputEvent.BatteryEvent -> { socketReport() }

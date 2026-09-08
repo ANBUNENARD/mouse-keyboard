@@ -5,18 +5,23 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/mode_touchpad"
-                    android:icon="@drawable/ic_touchpad"
-                    android:title="Touchpad"
+                    android:id="@+id/mode_keyboard"
+                    android:icon="@drawable/ic_baseline_keyboard_24"
+                    android:title="Keyboard"
                     android:checked="true"/>
+                <item
+                    android:id="@+id/mode_mouse"
+                    android:icon="@drawable/ic_touchpad"
+                    android:title="Mouse" />
+                <item
+                    android:id="@+id/mode_combo"
+                    android:icon="@drawable/ic_touchpad"
+                    android:title="Combo (Keyboard + Mouse)"
+                    android:checked="false"/>
                 <item
                     android:id="@+id/mode_numpad"
                     android:icon="@drawable/ic_baseline_dialpad_24"
                     android:title="Numpad" />
-                <item
-                    android:id="@+id/mode_keyboard"
-                    android:icon="@drawable/ic_baseline_keyboard_24"
-                    android:title="Keyboard" />
                 <item
                     android:id="@+id/mode_change_layout"
                     android:icon="@drawable/ic_language"

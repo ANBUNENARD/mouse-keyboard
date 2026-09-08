@@ -6,8 +6,7 @@ abstract class Connection {
 
     enum class Mode {
         USB,
-        WIFI,
-        BLUETOOTH
+        WIFI
     }
 
     // Maximum size of a packet for socket based connections
@@ -17,7 +16,7 @@ abstract class Connection {
 
     interface Listener {
         fun onConnected(connectionMode: Mode, hostName: String)
-        fun onConnectionFailed(connectionMode: Mode)
+        fun onConnectionFailed(connectionMode: Mode, reason: String? = null)
         fun onBytesReceived(buffer: ByteArray, bytes: Int)
         fun onDisconnected(connectionMode: Mode, hostName: String)
     }

@@ -1,12 +1,8 @@
 package com.darusc.mousedroid.networking
 
-import android.content.Context
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import com.darusc.mousedroid.BatteryMonitor
 import com.darusc.mousedroid.mkinput.InputEvent
-import com.darusc.mousedroid.networking.bluetooth.BluetoothConnection
 import com.darusc.mousedroid.networking.sockets.TCPConnection
 import com.darusc.mousedroid.networking.sockets.UDPConnection
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +33,7 @@ class ConnectionManager private constructor() : Connection.Listener, BatteryMoni
             }
         }
     }
-    
+
     init {
         BatteryMonitor.getInstance().addListener(this)
     }
@@ -46,20 +42,19 @@ class ConnectionManager private constructor() : Connection.Listener, BatteryMoni
 
     private var tcpConn: TCPConnection? = null
     private var udpConn: UDPConnection? = null
-    private var btConn: BluetoothConnection? = null
 
     /**
      * Active connection. UDP is prioritized over TCP
      */
     private val connection: Connection?
-        get() = udpConn ?: tcpConn ?: btConn
+        get() = udpConn ?: tcpConn
 
     private var connected = false
 
     interface ConnectionStateCallback {
         fun onConnectionInitiated(mode: Connection.Mode) {}
         fun onConnectionSuccessful(connectionMode: Connection.Mode, hostName: String) {}
-        fun onConnectionFailed(connectionMode: Connection.Mode) {}
+        fun onConnectionFailed(connectionMode: Connection.Mode, reason: String? = null) {}
         fun onDisconnected(connectionMode: Connection.Mode, hostName: String) {}
     }
 
@@ -72,8 +67,8 @@ class ConnectionManager private constructor() : Connection.Listener, BatteryMoni
         connectionStateCallback?.onConnectionSuccessful(connectionMode, hostName)
     }
 
-    override fun onConnectionFailed(connectionMode: Connection.Mode) {
-        connectionStateCallback?.onConnectionFailed(connectionMode)
+    override fun onConnectionFailed(connectionMode: Connection.Mode, reason: String?) {
+        connectionStateCallback?.onConnectionFailed(connectionMode, reason)
     }
 
     override fun onBytesReceived(buffer: ByteArray, bytes: Int) {}
@@ -127,23 +122,6 @@ class ConnectionManager private constructor() : Connection.Listener, BatteryMoni
     }
 
     /**
-     * Register the bluetooth HID profile
-     */
-    fun registerBluetoothHID(context: Context) {
-        CoroutineScope(Dispatchers.IO).launch {
-            btConn = BluetoothConnection(context, this@ConnectionManager)
-        }
-    }
-
-    /**
-     * Connect in bluetooth mode
-     */
-    fun connectBluetooth(macAddress: String) {
-        connectionStateCallback?.onConnectionInitiated(Connection.Mode.BLUETOOTH)
-        btConn?.connect(macAddress)
-    }
-
-    /**
      * Close active connection
      */
     fun disconnect() {
@@ -151,11 +129,9 @@ class ConnectionManager private constructor() : Connection.Listener, BatteryMoni
             connected = false
             udpConn?.close()
             tcpConn?.close()
-            btConn?.close()
 
             udpConn = null
             tcpConn = null
-            btConn = null
         }
     }
 

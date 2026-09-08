@@ -1,11 +1,5 @@
 package com.darusc.mousedroid.fragments
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.bluetooth.BluetoothAdapter
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -13,10 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
-import androidx.annotation.RequiresPermission
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -39,16 +29,6 @@ class Main : Fragment() {
 
     private val viewModel: ConnectionViewModel by activityViewModels()
 
-    @SuppressLint("MissingPermission")
-    private val enableBluetoothLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                viewModel.startBluetoothMode(requireContext(), true)
-            } else {
-                Toast.makeText(context, "Bluetooth is required for this mode.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,26 +45,12 @@ class Main : Fragment() {
         return binding.root
     }
 
-    @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnConnectSV.setOnClickListener {
             viewModel.startServerMode(requireContext())
         }
-
-        binding.btnConnectBT.setOnClickListener {
-            viewModel.startBluetoothMode(requireContext())
-        }
-
-        binding.btnPairBT.setOnClickListener {
-            viewModel.startBluetoothMode(requireContext())
-            val intent = Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE).apply {
-                putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 120)
-            }
-            startActivity(intent)
-        }
-
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -120,32 +86,17 @@ class Main : Fragment() {
                             is ConnectionViewModel.Event.ConnectionDisconnected -> {
                                 val pview = showPopupDialog(R.layout.connection_disconnected_fragment)
                                 pview?.apply {
-                                    if(it.connectionMode == Connection.Mode.BLUETOOTH) {
-                                        findViewById<TextView>(R.id.subtitle).text = "Bluetooth connection to ${it.hostName} was terminated"
-                                        findViewById<TextView>(R.id.description).text = "Host device turned bluetooth off or disconnected this device"
-                                    } else {
-                                        findViewById<TextView>(R.id.subtitle).text = "${it.connectionMode.name} Connection to Mousedroid server was interrupted."
-                                        findViewById<TextView>(R.id.description).text = "Make sure the server is still ON and ADB/WIFI is active."
-                                    }
+                                    findViewById<TextView>(R.id.subtitle).text = "${it.connectionMode.name} Connection to Mousedroid server was interrupted."
+                                    findViewById<TextView>(R.id.description).text = "Make sure the server is still ON and ADB/WIFI is active."
                                 }
                             }
 
                             is ConnectionViewModel.Event.ConnectionFailed -> {
                                 val pview = showPopupDialog(R.layout.connection_failed_fragment)
                                 pview?.apply {
-                                    if(it.connectionMode == Connection.Mode.BLUETOOTH) {
-                                        findViewById<TextView>(R.id.subtitle).text = "Bluetooth connection failed"
-                                        findViewById<TextView>(R.id.description).text = "Make sure the device is on"
-                                    } else {
-                                        findViewById<TextView>(R.id.subtitle).text = "Connection to Mousedroid server failed"
-                                        findViewById<TextView>(R.id.description).text = "To connect over WIFI make sure you are on the same network as the computer.\nTo connect over USB make sure ADB is on and debugging is enabled.\nMake sure Mousedroid server is allowed through the firewall. "
-                                    }
+                                    findViewById<TextView>(R.id.subtitle).text = "Connection to Mousedroid server failed"
+                                    findViewById<TextView>(R.id.description).text = "To connect over WIFI make sure you are on the same network as the computer.\nTo connect over USB make sure ADB is on and debugging is enabled.\nMake sure Mousedroid server is allowed through the firewall. "
                                 }
-                            }
-
-                            is ConnectionViewModel.Event.EnableBluetooth -> {
-                                val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                                enableBluetoothLauncher.launch(intent)
                             }
                             else -> {}
                         }

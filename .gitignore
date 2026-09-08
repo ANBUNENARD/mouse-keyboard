@@ -1,0 +1,24 @@
+# Local machine config
+client/local.properties
+local.properties
+
+# Gradle / build outputs
+.gradle/
+client/.gradle/
+client/app/build/
+client/build/
+build/
+
+# Unpacked Windows server + logs (keep only the zip)
+server-win/mousedroid_win64/
+server-win/fw.log
+server-win/*.log
+**/app.log
+**/fw.log
+
+# OS / IDE noise
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/

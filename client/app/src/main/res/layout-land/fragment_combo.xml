@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.darusc.mousedroid.viewmodels.TouchpadViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1a1d24"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <FrameLayout
+            android:id="@+id/comboKeyboardHost"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="58" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_weight="42"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/touchpad_bg"
+                android:contentDescription="Mouse touchpad area">
+
+                <View
+                    android:id="@+id/comboTouchpadSensor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLeftClick"
+                    style="@style/ComboMouseButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:onClick="@{viewmodel::onMouseButtonClick}"
+                    android:text="Left" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRightClick"
+                    style="@style/ComboMouseButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:onClick="@{viewmodel::onMouseButtonClick}"
+                    android:text="Right" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
