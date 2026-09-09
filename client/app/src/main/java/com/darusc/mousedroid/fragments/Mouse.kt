@@ -2,7 +2,6 @@ package com.darusc.mousedroid.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,23 +10,18 @@ import androidx.fragment.app.activityViewModels
 import com.darusc.mousedroid.R
 import com.darusc.mousedroid.databinding.FragmentMouseBinding
 import com.darusc.mousedroid.mkinput.GestureHandler
-import com.darusc.mousedroid.mkinput.InputEvent
 import com.darusc.mousedroid.viewmodels.TouchpadViewModel
-import kotlin.math.abs
 
 /**
- * Mouse screen: a mouse graphic is dragged around to hover the PC cursor.
- * Left / Right buttons click, the wheel in the middle scrolls.
+ * Trackpad screen: a plain pad area with the same layout in portrait
+ * and landscape. Drag to hover, tap for Left, two-finger tap for Right,
+ * two-finger drag to scroll. Left / Right buttons below the pad click.
  * Reuses TouchpadViewModel so it sends through the same connection.
  */
 class Mouse : Fragment() {
 
     private lateinit var binding: FragmentMouseBinding
     private val touchpadViewModel: TouchpadViewModel by activityViewModels()
-
-    private var wheelLastY = 0f
-    private var wheelAccumulator = 0f
-    private var wheelMoved = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,39 +41,5 @@ class Mouse : Fragment() {
                 touchpadViewModel.sendMouseEvent(event)
             }
         )
-        binding.mouseWheel.setOnTouchListener { _, event ->
-            when (event.actionMasked) {
-                MotionEvent.ACTION_DOWN -> {
-                    wheelLastY = event.y
-                    wheelAccumulator = 0f
-                    wheelMoved = false
-                    parentRequestDisallow(true)
-                    true
-                }
-                MotionEvent.ACTION_MOVE -> {
-                    val dy = wheelLastY - event.y
-                    wheelLastY = event.y
-                    if (abs(dy) > 0.5f) {
-                        wheelMoved = true
-                    }
-                    wheelAccumulator += dy
-                    while (abs(wheelAccumulator) >= 24f) {
-                        val tick = if (wheelAccumulator > 0) 10 else -10
-                        touchpadViewModel.sendMouseEvent(InputEvent.MouseScroll(0, tick))
-                        wheelAccumulator -= if (wheelAccumulator > 0) 24f else -24f
-                    }
-                    true
-                }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    parentRequestDisallow(false)
-                    true
-                }
-                else -> true
-            }
-        }
-    }
-
-    private fun parentRequestDisallow(disallow: Boolean) {
-        binding.mouseWheel.parent?.requestDisallowInterceptTouchEvent(disallow)
     }
 }

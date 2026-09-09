@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Drag the mouse to hover — Tap = Left click — Two-finger tap = Right click — Drag the wheel to scroll"
+            android:text="Drag to move — Tap = Left — Two-finger tap = Right — Two-finger drag = Scroll"
             android:textColor="#8b8b8b"
             android:textSize="12sp"
             android:layout_marginBottom="6dp" />
@@ -29,7 +29,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/touchpad_bg"
-            android:contentDescription="Mouse hover area">
+            android:contentDescription="Trackpad area">
 
             <View
                 android:id="@+id/mousePadSensor"
@@ -37,28 +37,6 @@
                 android:layout_height="match_parent"
                 android:clickable="true"
                 android:focusable="true" />
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="220dp"
-                    android:src="@drawable/mouse"
-                    android:contentDescription="Remote mouse" />
-
-                <View
-                    android:id="@+id/mouseWheel"
-                    android:layout_width="34dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="top|center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:contentDescription="Scroll wheel — drag up or down to scroll" />
-            </FrameLayout>
         </FrameLayout>
 
         <LinearLayout

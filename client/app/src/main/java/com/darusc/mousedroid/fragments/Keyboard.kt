@@ -1,5 +1,6 @@
 package com.darusc.mousedroid.fragments
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
@@ -17,15 +18,16 @@ import com.darusc.mousedroid.viewmodels.KeyboardViewModel
 import com.google.android.material.button.MaterialButton
 
 /**
- * Full PC keyboard screen, styled after the reference desktop on-screen
- * keyboard (number row with shifted symbols on top, Tab/QWERTY rows,
- * Caps/Shift rows, Fn/Ctrl/Win/Alt bottom row, navigation column).
+ * Full PC keyboard screen with short labels so every row fits in
+ * landscape. Typing rotates to landscape on entry and restores the
+ * previous orientation on exit.
  *
  * Every key fires on finger-down (ACTION_DOWN) instead of on click-release,
  * so typing feels instant. Each button owns its own touch listener, so
  * multi-touch (holding Shift while tapping a letter) works.
  * Shift/Ctrl/Alt/Win are sticky: tap one to arm it, tap a key for the combo.
  * Fn is a separate toggle: while armed, 1..= send F1..F12.
+ * The A+/A- button cycles Small / Medium / Large key height.
  */
 class Keyboard : Fragment() {
 
@@ -34,6 +36,14 @@ class Keyboard : Fragment() {
     private val viewModel: KeyboardViewModel by activityViewModels()
 
     private var fnArmed = false
+    private var previousOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    private var sizeStep = 1
+    private val sizeHeights = listOf(
+        R.dimen.kb_key_height_small,
+        R.dimen.kb_key_height,
+        R.dimen.kb_key_height_large
+    )
+    private val sizeLabels = listOf("A-", "A", "A+")
 
     private val modifierMods = mapOf(
         R.id.k_shift to Keycode.MOD_LEFT_SHIFT,
@@ -128,6 +138,15 @@ class Keyboard : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Typing needs width: rotate to landscape on entry, restore on exit.
+        previousOrientation = requireActivity().requestedOrientation
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
+        binding.kbSizeToggle.setOnClickListener {
+            sizeStep = (sizeStep + 1) % sizeHeights.size
+            applyKeyHeight()
+        }
+        applyKeyHeight()
         val allIds = modifierMods.keys + charKeys.keys + codeKeys.keys + setOf(R.id.k_fn)
         for (id in allIds) {
             val button = view.findViewById<View>(id) ?: continue
@@ -161,6 +180,24 @@ class Keyboard : Fragment() {
     override fun onPause() {
         super.onPause()
         viewModel.stopKeyRepeat()
+    }
+
+    override fun onDestroyView() {
+        requireActivity().requestedOrientation = previousOrientation
+        super.onDestroyView()
+    }
+
+    private fun applyKeyHeight() {
+        val heightPx = resources.getDimensionPixelSize(sizeHeights[sizeStep])
+        binding.kbSizeToggle.text = sizeLabels[sizeStep]
+        val root = view ?: return
+        val allIds = modifierMods.keys + charKeys.keys + codeKeys.keys + setOf(R.id.k_fn)
+        for (id in allIds) {
+            val button = root.findViewById<View>(id) ?: continue
+            val params = button.layoutParams ?: continue
+            params.height = heightPx
+            button.layoutParams = params
+        }
     }
 
     private fun onKeyDown(id: Int) {

@@ -27,10 +27,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
 /**
- * Input host fragment. Keyboard, Mouse and Combo are separated screens,
- * Numpad is the secondary screen. Both orientations are allowed so the
- * Combo layout itself adapts (keyboard on top in portrait,
- * keyboard on the left in landscape).
+ * Input host fragment. Keyboard, Trackpad and Numpad are separated screens.
  */
 class Input: Fragment() {
 
@@ -88,11 +85,6 @@ class Input: Fragment() {
                     item.isChecked = true
                     closeSoftKeyboard()
                     replaceChildFragment(Mouse())
-                }
-                R.id.mode_combo -> {
-                    item.isChecked = true
-                    closeSoftKeyboard()
-                    replaceChildFragment(Combo())
                 }
                 R.id.mode_numpad -> {
                     item.isChecked = true

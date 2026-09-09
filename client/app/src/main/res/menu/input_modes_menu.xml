@@ -12,12 +12,7 @@
                 <item
                     android:id="@+id/mode_mouse"
                     android:icon="@drawable/ic_touchpad"
-                    android:title="Mouse" />
-                <item
-                    android:id="@+id/mode_combo"
-                    android:icon="@drawable/ic_touchpad"
-                    android:title="Combo (Keyboard + Mouse)"
-                    android:checked="false"/>
+                    android:title="Trackpad" />
                 <item
                     android:id="@+id/mode_numpad"
                     android:icon="@drawable/ic_baseline_dialpad_24"

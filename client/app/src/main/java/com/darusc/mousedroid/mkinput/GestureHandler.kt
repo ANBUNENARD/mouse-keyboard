@@ -22,7 +22,7 @@ class GestureHandler(
 ) : View.OnTouchListener {
 
     private val TAG = "Mousedroid"
-    private val EV_DELAY_MILLIS: Long = 150
+    private val EV_DELAY_MILLIS: Long = 110
     private val SCROLL_TRESHOLD = 2.0f
 
     /**
@@ -33,8 +33,8 @@ class GestureHandler(
      * stays smooth and proportional to finger speed.
      */
     private val density: Float = context.resources.displayMetrics.density
-    private val moveGain = 1.6f
-    private val scrollGain = 0.35f
+    private val moveGain = 1.9f
+    private val scrollGain = 0.45f
     private var moveRemainderX = 0f
     private var moveRemainderY = 0f
     private var scrollRemainderX = 0f
