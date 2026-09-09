@@ -1,6 +1,3 @@
 <resources>
-    <!-- Adjustable keyboard key height; Keyboard.kt cycles S/M/L. -->
-    <dimen name="kb_key_height">52dp</dimen>
-    <dimen name="kb_key_height_small">44dp</dimen>
-    <dimen name="kb_key_height_large">60dp</dimen>
+    <dimen name="kb_key_height">48dp</dimen>
 </resources>

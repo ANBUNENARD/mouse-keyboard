@@ -1,894 +1,783 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:id="@+id/kbRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#1a1d24"
-        android:orientation="vertical"
+        android:background="@color/keyboard_bg"
         android:gravity="center_vertical"
-        android:padding="6dp">
+        android:orientation="vertical"
+        android:padding="2dp">
 
+        <!-- Row 1 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginBottom="4dp">
+            android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Tap = type — Shift / Ctrl / Alt / Win stay armed — Fn turns 1–= into F1–F12"
-                android:textColor="#8b8b8b"
-                android:textSize="11sp" />
+                android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/kbSizeToggle"
-                style="@style/KeyboardKey"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:minWidth="64dp"
-                android:text="A+"
-                android:textSize="12sp" />
+                <Button
+                    android:id="@+id/k_esc"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1.2"
+                    android:text="Esc" />
+                <Button
+                    android:id="@+id/k_grave"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="`&#8203;" />
+                <Button
+                    android:id="@+id/k_1"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="1" />
+                <Button
+                    android:id="@+id/k_2"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="2" />
+                <Button
+                    android:id="@+id/k_3"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="3" />
+                <Button
+                    android:id="@+id/k_4"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="4" />
+                <Button
+                    android:id="@+id/k_5"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="5" />
+                <Button
+                    android:id="@+id/k_6"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="6" />
+                <Button
+                    android:id="@+id/k_7"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="7" />
+                <Button
+                    android:id="@+id/k_8"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="8" />
+                <Button
+                    android:id="@+id/k_9"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="9" />
+                <Button
+                    android:id="@+id/k_0"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+                <Button
+                    android:id="@+id/k_minus"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="-" />
+                <Button
+                    android:id="@+id/k_equal"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="=" />
+                <Button
+                    android:id="@+id/k_backspace"
+                    style="@style/KeyboardKeySymbol"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1.6"
+                    android:text="&#9003;" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="126dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/k_home"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="Home" />
+                <Button
+                    android:id="@+id/k_pgup"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="PgUp" />
+                <Button
+                    android:id="@+id/k_nav"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="Nav" />
+            </LinearLayout>
         </LinearLayout>
 
+        <!-- Row 2 -->
         <LinearLayout
-            android:id="@+id/kbRows"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <!-- Row 1: Esc + digits + Backspace | short nav keys -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/k_tab"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1.5"
+                    android:text="Tab" />
+                <Button
+                    android:id="@+id/k_q"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="Q" />
+                <Button
+                    android:id="@+id/k_w"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="W" />
+                <Button
+                    android:id="@+id/k_e"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="E" />
+                <Button
+                    android:id="@+id/k_r"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="R" />
+                <Button
+                    android:id="@+id/k_t"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="T" />
+                <Button
+                    android:id="@+id/k_y"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="Y" />
+                <Button
+                    android:id="@+id/k_u"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="U" />
+                <Button
+                    android:id="@+id/k_i"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="I" />
+                <Button
+                    android:id="@+id/k_o"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="O" />
+                <Button
+                    android:id="@+id/k_p"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="P" />
+                <Button
+                    android:id="@+id/k_lbracket"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="[" />
+                <Button
+                    android:id="@+id/k_rbracket"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="]" />
+                <Button
+                    android:id="@+id/k_backslash"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="\\" />
+                <Button
+                    android:id="@+id/k_del"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1.2"
+                    android:text="Del" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="126dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/k_end"
+                    style="@style/KeyboardKeySmall"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_esc"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1.2"
-                        android:text="Esc"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_grave"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="~\n`"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_1"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="!\n1"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_2"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="@\n2"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_3"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="#\n3"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_4"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="$\n4"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_5"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="%\n5"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_6"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="^\n6"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_7"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="&amp;\n7"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_8"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="*\n8"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_9"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="(\n9"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_0"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text=")\n0"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_minus"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="_\n-"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_equal"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="+\n="
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_backspace"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1.8"
-                        android:text="&#9003;"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_home"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="Hm"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_pgup"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="P▲"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_nav"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:enabled="false"
-                        android:text="Nv"
-                        android:textSize="10sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Row 2: Tab + QWERTY + Del -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
+                    android:text="End" />
+                <Button
+                    android:id="@+id/k_pgdn"
+                    style="@style/KeyboardKeySmall"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_tab"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1.5"
-                        android:text="Tab"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_q"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="q"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_w"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="w"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_e"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="e"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_r"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="r"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_t"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="t"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_y"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="y"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_u"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="u"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_i"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="i"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_o"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="o"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_p"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="p"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_lbracket"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="{\n["
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_rbracket"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="}\n]"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_backslash"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="|\n\\"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_del"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1.2"
-                        android:text="Del"
-                        android:textSize="11sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_end"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="End"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_pgdn"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="P▼"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_mvup"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="▲"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Row 3: Caps + home row + Enter -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
+                    android:text="PgDn" />
+                <Button
+                    android:id="@+id/k_mvup"
+                    style="@style/KeyboardKeySymbol"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_caps"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1.6"
-                        android:text="Caps"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_a"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="a"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_s"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="s"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_d"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="d"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_f"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="f"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_g"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="g"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_h"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="h"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_j"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="j"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_k"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="k"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_l"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="l"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_semi"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text=":\n;"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_quote"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="&quot;\n'"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_enter"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="2"
-                        android:text="Entr"
-                        android:textSize="11sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_ins"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="Ins"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_pause"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="Pau"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_mvdn"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="▼"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                    android:text="&#8593;" />
             </LinearLayout>
-
-            <!-- Row 4: Shift + bottom row + arrows -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_shift"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1.8"
-                        android:text="Shft"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_z"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="z"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_x"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="x"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_c"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="c"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_v"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="v"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_b"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="b"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_n"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="n"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_m"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="m"
-                        android:textSize="13sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_comma"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="&lt;\n,"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_dot"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="&gt;\n."
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_slash"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="?\n/"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_up"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="&#8593;"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_shift_r"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1.8"
-                        android:text="Shft"
-                        android:textSize="11sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_prtsc"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="Prt"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_scrlk"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="Scr"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_dock"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:enabled="false"
-                        android:text="Dck"
-                        android:textSize="10sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Row 5: Fn Ctrl Win Alt Space Alt Ctrl arrows menu -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_fn"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="Fn"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_ctrl"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="Ctl"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_win"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="&#8862;"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_alt"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="Alt"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_space"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="3.4"
-                        android:text="Space"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_alt_r"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="Alt"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_ctrl_r"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="Ctl"
-                        android:textSize="11sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_left"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="&#8592;"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_down"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="&#8595;"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_right"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="&#8594;"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_menu"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="0.9"
-                        android:text="&#9783;"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_options"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="Opt"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_help"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:text="Hlp"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/k_fade"
-                        style="@style/KeyboardKey"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/kb_key_height"
-                        android:layout_weight="1"
-                        android:enabled="false"
-                        android:text="Fde"
-                        android:textSize="10sp" />
-                </LinearLayout>
-            </LinearLayout>
-
         </LinearLayout>
+
+        <!-- Row 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/k_caps"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1.6"
+                    android:text="Caps" />
+                <Button
+                    android:id="@+id/k_a"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="A" />
+                <Button
+                    android:id="@+id/k_s"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="S" />
+                <Button
+                    android:id="@+id/k_d"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="D" />
+                <Button
+                    android:id="@+id/k_f"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="F" />
+                <Button
+                    android:id="@+id/k_g"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="G" />
+                <Button
+                    android:id="@+id/k_h"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="H" />
+                <Button
+                    android:id="@+id/k_j"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="J" />
+                <Button
+                    android:id="@+id/k_k"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="K" />
+                <Button
+                    android:id="@+id/k_l"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="L" />
+                <Button
+                    android:id="@+id/k_semi"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text=";" />
+                <Button
+                    android:id="@+id/k_quote"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="'" />
+                <Button
+                    android:id="@+id/k_enter"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="2"
+                    android:text="Enter" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="126dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/k_ins"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="Ins" />
+                <Button
+                    android:id="@+id/k_pause"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="Pause" />
+                <Button
+                    android:id="@+id/k_mvdn"
+                    style="@style/KeyboardKeySymbol"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="&#8595;" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Row 4 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/k_shift"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1.8"
+                    android:text="Shift" />
+                <Button
+                    android:id="@+id/k_z"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="Z" />
+                <Button
+                    android:id="@+id/k_x"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="X" />
+                <Button
+                    android:id="@+id/k_c"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="C" />
+                <Button
+                    android:id="@+id/k_v"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="V" />
+                <Button
+                    android:id="@+id/k_b"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="B" />
+                <Button
+                    android:id="@+id/k_n"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="N" />
+                <Button
+                    android:id="@+id/k_m"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="M" />
+                <Button
+                    android:id="@+id/k_comma"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="," />
+                <Button
+                    android:id="@+id/k_dot"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="." />
+                <Button
+                    android:id="@+id/k_slash"
+                    style="@style/KeyboardKey"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="/" />
+                <Button
+                    android:id="@+id/k_up"
+                    style="@style/KeyboardKeySymbol"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="&#8593;" />
+                <Button
+                    android:id="@+id/k_shift_r"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1.8"
+                    android:text="Shift" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="126dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/k_prtsc"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="PrtSc" />
+                <Button
+                    android:id="@+id/k_scrlk"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="ScrLk" />
+                <Button
+                    android:id="@+id/k_dock"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="Dock" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Row 5 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/k_fn"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="Fn" />
+                <Button
+                    android:id="@+id/k_ctrl"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="Ctrl" />
+                <Button
+                    android:id="@+id/k_win"
+                    style="@style/KeyboardKeySymbol"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="&#8862;" />
+                <Button
+                    android:id="@+id/k_alt"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="Alt" />
+                <Button
+                    android:id="@+id/k_space"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="3.4"
+                    android:text="Space" />
+                <Button
+                    android:id="@+id/k_alt_r"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="Alt" />
+                <Button
+                    android:id="@+id/k_ctrl_r"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="Ctrl" />
+                <Button
+                    android:id="@+id/k_left"
+                    style="@style/KeyboardKeySymbol"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="&#8592;" />
+                <Button
+                    android:id="@+id/k_down"
+                    style="@style/KeyboardKeySymbol"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="&#8595;" />
+                <Button
+                    android:id="@+id/k_right"
+                    style="@style/KeyboardKeySymbol"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="&#8594;" />
+                <Button
+                    android:id="@+id/k_menu"
+                    style="@style/KeyboardKeySymbol"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.9"
+                    android:text="&#9783;" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="126dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/k_options"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="Opt" />
+                <Button
+                    android:id="@+id/k_help"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:text="Help" />
+                <Button
+                    android:id="@+id/k_fade"
+                    style="@style/KeyboardKeySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="Fade" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 </layout>

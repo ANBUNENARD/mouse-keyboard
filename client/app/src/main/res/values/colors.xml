@@ -15,6 +15,9 @@
     <color name="accent_blue">#00E5FF</color>
     <color name="card_gray">#1E1E1E</color>
     <color name="button_gray">#2C2C2C</color>
+    <color name="keyboard_key">#2b2b2b</color>
+    <color name="keyboard_key_border">#7a7a7a</color>
+    <color name="keyboard_bg">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="stickyActive">#00E5FF</color>
 
